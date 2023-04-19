@@ -1,0 +1,32 @@
+{
+  "name": "hub-2",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "dev-refresh": "cross-env USE_REFRESH=true vite",
+    "build": "vite build",
+    "build-refresh": "cross-env USE_REFRESH=true vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@iconify/json": "^2.2.51",
+    "@reduxjs/toolkit": "^1.9.2",
+    "framer-motion": "^10.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5"
+  },
+  "devDependencies": {
+    "@iconify-json/logos": "^1.1.24",
+    "@types/react": "^18.0.33",
+    "@types/react-dom": "^18.0.11",
+    "@unocss/core": "file:../../packages/core",
+    "@unocss/preset-attributify": "file:../../packages/preset-attributify",
+    "@unocss/preset-icons": "file:../../packages/preset-icons",
+    "@vitejs/plugin-react": "^3.1.0",
+    "cross-env": "^7.0.3",
+    "typescript": "^5.0.4",
+    "unocss": "file:../../packages/unocss",
+    "vite": "^4.2.1"
+  }
+}
