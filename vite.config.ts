@@ -19,6 +19,11 @@ export default defineConfig({
           "pos-u": "unset",
           "pos-in": "initial",
           "pos-st": "sticky",
+          ofh: "overflow-hidden",
+          ofv: "overflow-visible",
+          ofa: "overflow-auto",
+          ofxh: "overflow-x-hidden",
+          ofyh: "overflow-y-hidden",
         },
       ],
       rules: [

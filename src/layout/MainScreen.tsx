@@ -1,13 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addScreen, removeScreen } from "../store/slices/screenSlice";
+import { Screen, addScreen, removeScreen } from "../store/slices/screenSlice";
 import { RootState } from "../store/store";
 import Nav from "./Nav";
 
 const MainScreen = () => {
   const screens = useSelector((state: RootState) => state.screens.active);
   const dispatch = useDispatch();
-
+  console.log(screens);
   const handleAdd = () => {
     dispatch(addScreen({ app: "test" }));
   };
@@ -20,14 +20,15 @@ const MainScreen = () => {
       <Nav />
       {screens.length > 0 ? (
         <div className={"hf wf flex"}>
-          {screens.map((screen: any, idx: number) => (
+          {screens.map((screen: Screen, idx: number) => (
             <section
+              key={screen.app}
               className={`
-              flex-1 border-2 border-green-500 border-solid grid place-items-center
+              flex-1 border-r-1 border-0 border-solid border-black grid place-items-center first:border-l-0 last:border-r-0 
             `}
             >
               <div>
-                <h1>Screen {idx}</h1>
+                <h1>{screen.app}</h1>
                 <button onClick={handleAdd}>Add</button>
                 <button onClick={() => handleRemove(idx)}>Remove</button>
               </div>
