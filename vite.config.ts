@@ -4,6 +4,7 @@ import UnoCSS from "unocss/vite";
 import presetAttributify from "@unocss/preset-attributify";
 import presetIcons from "@unocss/preset-icons";
 import presetUno from "@unocss/preset-uno";
+import presetWebFonts from "@unocss/preset-web-fonts";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -29,17 +30,9 @@ export default defineConfig({
       rules: [
         ["wf", { width: "100%" }],
         ["hf", { height: "100%" }],
-        ["fs-1", { "font-size": "0.875rem" }],
-        ["fs-2", { "font-size": "1rem" }],
-        ["fs-3", { "font-size": "1.125rem" }],
-        ["fs-4", { "font-size": "1.25rem" }],
-        ["fs-5", { "font-size": "1.375rem" }],
-        ["fs-6", { "font-size": "1.5rem" }],
-        ["fs-7", { "font-size": "1.625rem" }],
-        ["fs-8", { "font-size": "1.75rem" }],
-        ["fs-9", { "font-size": "1.875rem" }],
-        ["fs-10", { "font-size": "2rem" }],
+        ["ff-primary", { "font-family": "Megrim, monospace" }],
 
+        [/^fs-(\d+)$/, ([, d]) => ({ "font-size": `${parseInt(d) / 4}rem` })],
         [
           /^br-tl-(\d+)$/,
           ([, d]) => ({ "border-top-left-radius": `${parseInt(d) / 4}rem` }),
@@ -59,9 +52,14 @@ export default defineConfig({
           }),
         ],
       ],
+
       presets: [
         presetUno(),
         presetAttributify(),
+        presetWebFonts({
+          provider: "google",
+          fonts: [{ name: "Megrim" }],
+        }),
         presetIcons({
           extraProperties: {
             display: "inline-block",

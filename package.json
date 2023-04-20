@@ -23,6 +23,7 @@
     "@unocss/core": "file:../../packages/core",
     "@unocss/preset-attributify": "file:../../packages/preset-attributify",
     "@unocss/preset-icons": "file:../../packages/preset-icons",
+    "@unocss/preset-web-fonts": "^0.51.5",
     "@vitejs/plugin-react": "^3.1.0",
     "cross-env": "^7.0.3",
     "typescript": "^5.0.4",

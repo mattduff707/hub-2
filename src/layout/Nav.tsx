@@ -13,7 +13,7 @@ const fade = {
 
 const navOptions = [
   { icon: "i-material-symbols-checklist-rounded", app: "tasks" },
-  { icon: "i-material-symbols-bookmark-outline-rounded", app: "calendar" },
+  { icon: "i-material-symbols-bookmark-outline-rounded", app: "bookmarks" },
 ];
 
 const Nav = () => {
@@ -38,6 +38,7 @@ const Nav = () => {
     >
       <motion.h1
         className={`
+        ff-primary
           fs-10 grid place-items-center cursor-pointer bg-white
           border-1 border-black border-solid border-l-0 ofh
           z-10 br-br-4 h-74px ${isShowing ? "w-220px" : "w-64px"}
@@ -51,7 +52,7 @@ const Nav = () => {
         <AnimatePresence mode="wait">
           {isShowing ? (
             <motion.span layout={true} key="longname" {...fade}>
-              The Hub
+              THE HUB
             </motion.span>
           ) : (
             <motion.span layout={true} key="shortname" {...fade}>
@@ -94,7 +95,7 @@ const Nav = () => {
         </div>
         {isMenuShowing &&
           navOptions.map((option, idx) => (
-            <motion.div
+            <div
               onClick={() => {
                 const isActive = screens.find(
                   (screen) => screen.app === option.app
@@ -114,22 +115,20 @@ const Nav = () => {
         z-0 ${isShowing ? "translate-y-0" : "translate-y--64px"}
         transition-transform duration-400 ease last:br-br-4
         `}
-              layout
             >
               <div
                 className={`
             wf hf grid place-items-center cursor-pointer
             `}
               >
-                <motion.div
+                <div
                   className={`
               ${option.icon} h-40px w-40px
               `}
-                  layout="preserve-aspect"
                   key={idx}
                 />
               </div>
-            </motion.div>
+            </div>
           ))}
       </motion.div>
     </nav>
