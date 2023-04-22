@@ -1,12 +1,14 @@
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import MainScreen from "./layout/MainScreen";
-import { store } from "./store/store";
+import { RootState, store } from "./store/store";
+import { useEffect, useState } from "react";
+import Main from "./layout/Main";
 
 function App() {
   return (
     <Provider store={store}>
       <main>
-        <MainScreen />
+        <Main />
       </main>
     </Provider>
   );

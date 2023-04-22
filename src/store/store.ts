@@ -1,10 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
 import screenReducer from "./slices/screenSlice";
+import { setupListeners } from "@reduxjs/toolkit/dist/query";
+import authReducer from "./slices/authSlice";
+import { api } from "./api/api";
+
 export const store = configureStore({
   reducer: {
+    [api.reducerPath]: api.reducer,
+    auth: authReducer,
     screens: screenReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(api.middleware),
 });
+
+setupListeners(store.dispatch);
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;

@@ -40,7 +40,7 @@ const Nav = () => {
         className={`
         ff-primary
           fs-10 grid place-items-center cursor-pointer bg-white
-          border-1 border-black border-solid border-l-0 ofh
+          border-1 border-black border-solid border-l-0 border-t-0 ofh
           z-10 br-br-4 h-74px ${isShowing ? "w-220px" : "w-64px"}
         `}
         onClick={() => {
