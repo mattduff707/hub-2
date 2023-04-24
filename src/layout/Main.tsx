@@ -6,7 +6,7 @@ import Login from "../components/Login";
 
 const Main = () => {
   const user = useSelector((state: RootState) => state.auth.user);
-  return <div>{user ? <MainScreen /> : <Login />}</div>;
+  return <main>{user ? <MainScreen /> : <Login />}</main>;
 };
 
 export default Main;

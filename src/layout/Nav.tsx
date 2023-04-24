@@ -96,6 +96,7 @@ const Nav = () => {
         {isMenuShowing &&
           navOptions.map((option, idx) => (
             <div
+              key={option.app}
               onClick={() => {
                 const isActive = screens.find(
                   (screen) => screen.app === option.app
