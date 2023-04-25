@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import { useSignUpMutation } from "../store/api/api";
+import { useSignInMutation, useSignUpMutation } from "../store/api/api";
 import { setCredentials } from "../store/slices/authSlice";
 
 enum FormFields {
@@ -11,7 +11,7 @@ enum FormFields {
 const Login = () => {
   const dispatch = useDispatch();
 
-  const [signUp, { isLoading }] = useSignUpMutation();
+  const [signIn, { isLoading }] = useSignInMutation();
 
   const [form, setForm] = useState({
     [FormFields.EMAIL]: "",
@@ -45,7 +45,7 @@ const Login = () => {
       <button
         onClick={async () => {
           try {
-            const user = await signUp(form).unwrap();
+            const user = await signIn(form).unwrap();
 
             console.log(user);
 

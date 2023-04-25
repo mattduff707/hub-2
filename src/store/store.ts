@@ -2,11 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import screenReducer from "./slices/screenSlice";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import authReducer from "./slices/authSlice";
+import uiReducer from "./slices/uiSlice";
 import { api } from "./api/api";
 
 export const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
+    ui: uiReducer,
     auth: authReducer,
     screens: screenReducer,
   },

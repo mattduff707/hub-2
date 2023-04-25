@@ -25,6 +25,11 @@ export default defineConfig({
           ofa: "overflow-auto",
           ofxh: "overflow-x-hidden",
           ofyh: "overflow-y-hidden",
+          jcsb: "flex-justify-between",
+          jcsa: "flex-justify-around",
+          jcsfe: "flex-justify-end",
+          jcfs: "flex-justify-start",
+          jcc: "flex-justify-center",
         },
       ],
       rules: [

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Screen, addScreen, removeScreen } from "../store/slices/screenSlice";
 import { RootState } from "../store/store";
 import Nav from "./Nav";
+import widgets from "../widgets";
 
 const MainScreen = () => {
   const screens = useSelector((state: RootState) => state.screens.active);
@@ -10,9 +11,6 @@ const MainScreen = () => {
   console.log(screens);
   const handleAdd = () => {
     dispatch(addScreen({ app: "test" }));
-  };
-  const handleRemove = (idx: number) => {
-    dispatch(removeScreen(idx));
   };
 
   const [password, setPassword] = useState("");
@@ -38,22 +36,20 @@ const MainScreen = () => {
       <Nav />
       {screens.length > 0 ? (
         <div className={"hf wf flex"}>
-          {screens.map((screen: Screen, idx: number) => (
-            <section
-              key={screen.app}
-              className={`
-              flex-1 border-r-1 border-0 border-solid border-black grid place-items-center first:border-l-0 last:border-r-0 
+          {screens.map((screen: Screen, idx: number) => {
+            const { Component } = widgets[screen.app];
+            return (
+              <section
+                key={screen.app}
+                className={`
+            flex-1 border-r-1 border-0 border-solid border-black
+              first:border-l-0 last:border-r-0 
             `}
-            >
-              <div>
-                <h1>{screen.app}</h1>
-                <input onChange={(e) => setPassword(e.currentTarget.value)} />
-                <button onClick={handleNewPassword}>Password</button>
-                {/* <button onClick={handleAdd}>Add</button>
-                <button onClick={() => handleRemove(idx)}>Remove</button> */}
-              </div>
-            </section>
-          ))}
+              >
+                <Component />
+              </section>
+            );
+          })}
         </div>
       ) : (
         <section

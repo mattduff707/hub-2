@@ -3,11 +3,11 @@ import { RootState } from "../store";
 import { User } from "./types";
 
 export interface UserResponse extends User {
-  token: string;
+  access_token: string;
 }
 
 export interface LoginRequest {
-  username: string;
+  email: string;
   password: string;
 }
 
