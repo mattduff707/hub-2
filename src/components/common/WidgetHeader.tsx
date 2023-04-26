@@ -1,22 +1,19 @@
-import React from "react";
-import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
-import { motion } from "framer-motion";
+import styled from "styled-components";
+import { RootState } from "../../store/store";
+
+const Wrapper = styled.header<{ menuOpen: boolean }>`
+  padding-top: ${(props) => (props.menuOpen ? "76px" : "12px")};
+`;
 
 const WidgetHeader = (props: any) => {
   const { className, children, ...rest } = props;
   const menuStatus = useSelector((state: RootState) => state.ui.menuStatus);
-  const isMenuClosed = menuStatus === "closed";
 
   return (
-    <header
-      className={
-        (className ? className : "") + `${isMenuClosed ? "pt-12px" : "pt-76px"}`
-      }
-      {...rest}
-    >
+    <Wrapper className={className} menuOpen={menuStatus === "open"} {...rest}>
       {children}
-    </header>
+    </Wrapper>
   );
 };
 

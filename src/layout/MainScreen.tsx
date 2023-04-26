@@ -4,6 +4,32 @@ import { Screen, addScreen, removeScreen } from "../store/slices/screenSlice";
 import { RootState } from "../store/store";
 import Nav from "./Nav";
 import widgets from "../widgets";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  height: 100%;
+  width: 100%;
+  position: relative;
+`;
+
+const ScreenWrap = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+`;
+const WidgetScreen = styled.section`
+  flex: 1;
+  border-right: 1px solid black;
+  &:last-child {
+    border-right: none;
+  }
+`;
+const EmptyWrap = styled.section`
+  display: grid;
+  place-items: center;
+  height: 100%;
+  width: 100%;
+`;
 
 const MainScreen = () => {
   const screens = useSelector((state: RootState) => state.screens.active);
@@ -32,38 +58,27 @@ const MainScreen = () => {
   };
 
   return (
-    <div className="hf wf pos-r">
+    <Wrapper>
       <Nav />
       {screens.length > 0 ? (
-        <div className={"hf wf flex"}>
+        <ScreenWrap>
           {screens.map((screen: Screen, idx: number) => {
             const { Component } = widgets[screen.app];
             return (
-              <section
-                key={screen.app}
-                className={`
-            flex-1 border-r-1 border-0 border-solid border-black
-              first:border-l-0 last:border-r-0 
-            `}
-              >
+              <WidgetScreen key={screen.app}>
                 <Component />
-              </section>
+              </WidgetScreen>
             );
           })}
-        </div>
+        </ScreenWrap>
       ) : (
-        <section
-          className={`
-          hf wf grid place-items-center
-        `}
-        >
+        <EmptyWrap>
           <div>
             <h1>Empty</h1>
-            <button onClick={handleAdd}>Add</button>
           </div>
-        </section>
+        </EmptyWrap>
       )}
-    </div>
+    </Wrapper>
   );
 };
 

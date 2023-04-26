@@ -1,8 +1,14 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import { useSignInMutation, useSignUpMutation } from "../store/api/api";
+import { useDispatch } from "react-redux";
+import styled from "styled-components";
+import { useSignInMutation } from "../store/api/api";
 import { setCredentials } from "../store/slices/authSlice";
+
+const Label = styled.label`
+  display: flex;
+  flex-direction: column;
+  max-width: 200px;
+`;
 
 enum FormFields {
   EMAIL = "email",
@@ -25,23 +31,23 @@ const Login = () => {
   };
 
   return (
-    <div className={"p-4"}>
-      <label className={"flex flex-col max-w-200px"}>
+    <div style={{ padding: "16px" }}>
+      <Label>
         Email
         <input
           name={FormFields.EMAIL}
           value={form.email}
           onChange={handleChange}
         />
-      </label>
-      <label className={"flex flex-col max-w-200px"}>
+      </Label>
+      <Label>
         Password
         <input
           name={FormFields.PASSWORD}
           value={form.password}
           onChange={handleChange}
         />
-      </label>
+      </Label>
       <button
         onClick={async () => {
           try {

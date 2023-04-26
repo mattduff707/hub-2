@@ -1,22 +1,54 @@
-import { AnimatePresence, motion } from "framer-motion";
-import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+import CloseIcon from "../components/icons/CloseIcon";
 import { addScreen, removeScreen } from "../store/slices/screenSlice";
-import { RootState } from "../store/store";
 import { MenuStatus, updateMenuStatus } from "../store/slices/uiSlice";
+import { RootState } from "../store/store";
 import widgets from "../widgets";
 
-const fade = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  exit: { opacity: 0 },
-  transition: { duration: 0.1 },
-};
+const Navbar = styled.nav<{ open: boolean }>`
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  isolation: isolate;
+  transform: ${(props) =>
+    props.open ? "translateY(0px)" : "translateY(-100%)"};
+  transition: transform 0.4s ease;
+`;
 
-// const navOptions = [
-//   { icon: "i-material-symbols-checklist-rounded", app: "tasks" },
-//   { icon: "i-material-symbols-bookmark-outline-rounded", app: "bookmarks" },
-// ];
+const Title = styled.h1`
+  font-family: "Megrim", monospace;
+  font-size: 2.5rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid black;
+  border-top: none;
+  z-index: 10;
+  height: 64px;
+  width: 220px;
+`;
+const MenuWrap = styled.div`
+  display: flex;
+`;
+const MenuItemWrap = styled.div`
+  width: 64px;
+  height: 64px;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  overflow: hidden;
+  &:last-child {
+    border-radius: 0px 0px 12px 0px;
+  }
+`;
+const MenuItem = styled.div`
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background-color: white;
+  cursor: pointer;
+`;
 
 const Nav = () => {
   const menuStatus = useSelector((state: RootState) => state.ui.menuStatus);
@@ -35,54 +67,20 @@ const Nav = () => {
   };
 
   return (
-    <nav
-      className={`
-      pos-a top-0 left-0 flex isolation-isolate ${
-        menuStatus === "open" ? "translate-y-0px" : "translate-y--100%"
-      }
-    `}
-    >
-      <motion.h1
-        className={`
-        ff-primary
-          fs-10 grid place-items-center cursor-pointer bg-white
-          border-1 border-black border-solid border-l-0 border-t-0 ofh
-          z-10 h-64px w-220px
-        `}
-        layout
-      >
-        <AnimatePresence mode="wait">
-          <motion.span layout={true} key="longname" {...fade}>
-            THE HUB
-          </motion.span>
-        </AnimatePresence>
-      </motion.h1>
-      <motion.div className={"flex"} layout>
-        <div
+    <Navbar open={menuStatus === "open"}>
+      <Title>THE HUB</Title>
+      <MenuWrap>
+        <MenuItemWrap
           onClick={() =>
             handleUpdateMenuStatus(menuStatus === "open" ? "closed" : "open")
           }
-          className={`
-        w-64px h-64px border-1 border-black border-solid border-l-0 border-t-0
-        z-0 
-        transition-transform duration-400 ease last:br-br-4
-        `}
         >
-          <div
-            className={`
-          wf hf grid place-items-center cursor-pointer
-          `}
-          >
-            <motion.div
-              className={`
-                i-ic-baseline-close h-40px w-40px
-                `}
-              layout="preserve-aspect"
-            />
-          </div>
-        </div>
-        {Object.entries(widgets).map(([name, widget], idx) => (
-          <div
+          <MenuItem>
+            <CloseIcon />
+          </MenuItem>
+        </MenuItemWrap>
+        {Object.entries(widgets).map(([name, { Icon }], idx) => (
+          <MenuItemWrap
             key={name}
             onClick={() => {
               const isActive = screens.find((screen) => screen.app === name);
@@ -96,27 +94,14 @@ const Nav = () => {
                 handleAdd(name);
               }
             }}
-            className={`
-        w-64px h-64px bg-white border-1 border-black border-solid border-l-0 border-t-0
-        z-0 transition-transform duration-400 ease last:br-br-4
-        `}
           >
-            <div
-              className={`
-            wf hf grid place-items-center cursor-pointer
-            `}
-            >
-              <div
-                className={`
-              ${widget.icon} h-40px w-40px
-              `}
-                key={idx}
-              />
-            </div>
-          </div>
+            <MenuItem>
+              <Icon />
+            </MenuItem>
+          </MenuItemWrap>
         ))}
-      </motion.div>
-    </nav>
+      </MenuWrap>
+    </Navbar>
   );
 };
 

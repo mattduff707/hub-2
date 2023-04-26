@@ -21,7 +21,9 @@ const Tasks = () => {
       <WidgetHeader>
         <motion.h2 layout>Tasks</motion.h2>
       </WidgetHeader>
-      <button onClick={handleMenuToggle}>Close menu</button>
+      <motion.button layout onClick={handleMenuToggle}>
+        Close menu
+      </motion.button>
     </motion.div>
   );
 };

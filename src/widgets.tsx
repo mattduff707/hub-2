@@ -1,16 +1,17 @@
+import TaskIcon from "./components/icons/TasksIcon";
 import Tasks from "./layout/widgets/Tasks";
 
 export interface Widget {
   name: string;
   Component: React.FC;
-  icon: string;
+  Icon: React.FC;
 }
 
 const widgets: { [key: string]: Widget } = {
   tasks: {
     name: "tasks",
     Component: Tasks,
-    icon: "i-material-symbols-checklist-rounded",
+    Icon: TaskIcon,
   },
 };
 
