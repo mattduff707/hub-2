@@ -16,7 +16,7 @@ export const api = createApi({
     baseUrl: "http://localhost:3000/",
     prepareHeaders: (headers, { getState }) => {
       // By default, if we have a token in the store, let's use that for authenticated requests
-      const token = (getState() as RootState).auth.token;
+      const token = localStorage.getItem("token");
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
       }
@@ -43,8 +43,26 @@ export const api = createApi({
     protected: builder.mutation<{ message: string }, void>({
       query: () => "protected",
     }),
+    tokenAuth: builder.mutation<UserResponse, { token: string }>({
+      query: () => ({
+        url: "auth/tokenSignIn",
+        method: "GET",
+      }),
+    }),
+    createProject: builder.mutation<any, { title: string }>({
+      query: (body) => ({
+        url: "tasks/createProject",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useSignUpMutation, useSignInMutation, useProtectedMutation } =
-  api;
+export const {
+  useSignUpMutation,
+  useSignInMutation,
+  useProtectedMutation,
+  useTokenAuthMutation,
+  useCreateProjectMutation,
+} = api;

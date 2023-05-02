@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { useSignInMutation } from "../store/api/api";
+import { useSignInMutation, useTokenAuthMutation } from "../store/api/api";
 import { setCredentials } from "../store/slices/authSlice";
 
 const Label = styled.label`
@@ -30,6 +30,21 @@ const Login = () => {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
+  const [tokenSignIn, { data, isLoading: isTokenAuthLoading }] =
+    useTokenAuthMutation();
+
+  useEffect(() => {
+    const tokenAuth = async () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const user = await tokenSignIn({ token }).unwrap();
+        const { access_token, ...userWithoutToken } = user;
+        dispatch(setCredentials(userWithoutToken));
+      }
+    };
+    tokenAuth();
+  }, []);
+
   return (
     <div style={{ padding: "16px" }}>
       <Label>
@@ -52,10 +67,11 @@ const Login = () => {
         onClick={async () => {
           try {
             const user = await signIn(form).unwrap();
+            const { access_token, ...userWithoutToken } = user;
 
-            console.log(user);
+            localStorage.setItem("token", access_token);
 
-            dispatch(setCredentials(user));
+            dispatch(setCredentials(userWithoutToken));
           } catch (err) {
             console.log(err);
           }

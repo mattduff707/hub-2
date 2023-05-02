@@ -7,17 +7,14 @@ import { UserResponse } from "../api/api";
 
 type AuthState = {
   user: User | null;
-  token: string | null;
 };
 
 const slice = createSlice({
   name: "auth",
-  initialState: { user: null, token: null } as AuthState,
+  initialState: { user: null } as AuthState,
   reducers: {
-    setCredentials: (state, { payload }: PayloadAction<UserResponse>) => {
-      const { access_token, ...user } = payload;
-      state.user = user;
-      state.token = access_token;
+    setCredentials: (state, { payload }: PayloadAction<User>) => {
+      state.user = payload;
     },
   },
 });

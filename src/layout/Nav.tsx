@@ -15,6 +15,7 @@ const Navbar = styled.nav<{ open: boolean }>`
   transform: ${(props) =>
     props.open ? "translateY(0px)" : "translateY(-100%)"};
   transition: transform 0.4s ease;
+  width: 100%;
 `;
 
 const Title = styled.h1`
@@ -24,22 +25,21 @@ const Title = styled.h1`
   place-items: center;
   border: 1px solid black;
   border-top: none;
+  border-left: none;
   z-index: 10;
   height: 64px;
   width: 220px;
 `;
 const MenuWrap = styled.div`
   display: flex;
+  border-bottom: 1px solid black;
+  height: 64px;
+  width: 100%;
 `;
 const MenuItemWrap = styled.div`
   width: 64px;
-  height: 64px;
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
+  height: 100%;
   overflow: hidden;
-  &:last-child {
-    border-radius: 0px 0px 12px 0px;
-  }
 `;
 const MenuItem = styled.div`
   width: 100%;
